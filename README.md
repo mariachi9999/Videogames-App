@@ -67,8 +67,14 @@ __IMPORTANTE__: Para las funcionalidades de filtrado y ordenamiento NO pueden ut
 
   - GET https://api.rawg.io/api/games
   - GET https://api.rawg.io/api/games?search={game}
-  - GET https://api.rawg.io/api/genres
+  - GET https://api.rawg.io/api/genres?key=1e34baea7ff64f96b77376c140694bba
   - GET https://api.rawg.io/api/games/{id}
+ 
+ Ejemplos de consulta!
+  https://api.rawg.io/api/games?key=1e34baea7ff64f96b77376c140694bba
+  https://api.rawg.io/api/games?key=1e34baea7ff64f96b77376c140694bba&search="Half"
+  https://api.rawg.io/api/genres
+  https://api.rawg.io/api/games/12?key=1e34baea7ff64f96b77376c140694bba
 
 ### Requerimientos mínimos:
 
