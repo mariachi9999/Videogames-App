@@ -70,7 +70,7 @@ async function getVideogames(req,res,next) {
         videogamesAPI.forEach(g=> videogamesPpal.push({
                 name: g.dataValues.name,
                 genres: g.dataValues.genres,  
-                image: `htts://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr-ampJeYlR8KeHYX-_P3Br3Bg0RJdRs2-0g&usqp=CAU`,
+                image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
                 rating: g.dataValues.rating,
                 platforms: g.dataValues.platforms,
                 id: g.dataValues.id,
@@ -101,15 +101,14 @@ async function searchVideogames (req, res, next) {
         const dataDB = videogamesDB.map(g=>({
                 name: g.dataValues.name,
                 genres: g.dataValues.genres,  
-                image: `htts://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr-ampJeYlR8KeHYX-_P3Br3Bg0RJdRs2-0g&usqp=CAU`,
+                image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
                 rating: g.dataValues.rating,
                 platforms: g.dataValues.platforms,
                 id: g.dataValues.id,
                 source: 'local'
             }))
             
-        dataDB.forEach(g=>results.push(g))
-        ;
+        dataDB.forEach(g=>results.push(g));
 
         const videogamesAPI = await axios
             .get(`${BASE_URL}${BASE_VIDEOGAMES}?key=${RAWG_API_KEY}&search=${search}`, {
@@ -129,16 +128,13 @@ async function searchVideogames (req, res, next) {
             
         const filteredDataAPI = dataAPI.filter(g => g.name.toLowerCase().includes(search.toLowerCase()) )
             
-        filteredDataAPI.forEach(g=>results.push(g))
-        ;
+        filteredDataAPI.forEach(g=>results.push(g));
            
         res.json(results)
 
         } catch (e) {
             next(e)
         }
-
-
 }
 
 async function getVideogameDetail(req,res,next){
@@ -157,7 +153,7 @@ async function getVideogameDetail(req,res,next){
             name: g.dataValues.name
         }));
         var platforms = platformsToFix.split(',').map(p=>({platform:{name:p}}))
-        background_image = `htts://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr-ampJeYlR8KeHYX-_P3Br3Bg0RJdRs2-0g&usqp=CAU`
+        background_image = `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`
     } else {
         videogame = await axios
         .get(`${BASE_URL}${BASE_VIDEOGAMES}/${id.toString()}?key=${RAWG_API_KEY}`, {
