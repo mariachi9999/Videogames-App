@@ -1,5 +1,5 @@
 import axios from "axios";
-import {URL_HOME} from "../../constants";
+import {URL_HOME, URL_DETAIL} from "../../constants";
 
 export const getVideogames = function(){
     return function(dispatch) {
@@ -16,9 +16,17 @@ export const getVideogames = function(){
 
 export const getMovieDetail = function(id){
     return function(dispatch) {
-        console.log("modificar")
+        console.log("Action salió ok hacia el reducer")
+        return axios.get(`${URL_DETAIL}/${id}`)
+            .then(response => {
+                dispatch({
+                    type: 'GET_VIDEOGAME_DETAIL',
+                    payload: response.data
+                })
+            })
     }
-}
+    }
+
 
 export const addMovieFavorite = function (payload) {
     return {

@@ -1,0 +1,13 @@
+.cabecera {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    display: flex
+}

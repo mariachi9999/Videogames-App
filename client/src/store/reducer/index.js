@@ -22,9 +22,10 @@ const rootReducer = (state=initialState,action) => {
             return {
                 ...state
             }
-        case 'GET_MOVIE_DETAIL':
+        case 'GET_VIDEOGAME_DETAIL':
             return {
-                ...state
+                ...state,
+                movieDetail: action.payload.data
             }
         default:
             return {

@@ -1,45 +1,60 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { getVideogames } from "../../store/actions";
-
+import { getMovieDetail } from "../../store/actions";
+import styles from "./VideogameDetail.module.css"
+import SearchBar from "../SearchBar/index";
 
 
 const VideogameDetail = (props) =>  {
 
+  const url_id = props.match.params.id;
+
+  const details = useSelector(state => state.movieDetail)
+  const dispatch = useDispatch()  
+  
+  useEffect(()=> 
+      dispatch(getMovieDetail(url_id)),
+      []
+    )
+  
+  const {description, genres, image, name, platforms, rating, released } = details; 
+
     return (
-      <div>
-        <h2>Buscador</h2>
-        <ul>
-          {props.videogames?.map(games =>
-            <div key={games.id}>
-              <Link to={`/videogames/${games.id}`}>
-                <div>{games.Title}</div>
-              </Link>
-            </div> 
-          )}
-        </ul>
+      <div >
+        <div className={styles.cabecera}>
+          <SearchBar/>
+          <h2>{name}</h2>
+            <Link to={`/home`}>
+              <button>Home</button>
+            </Link>
+        </div>
+        <div className={styles.presentation}>
+          <img src={image} alt={image} className={styles.image}/>
+          <div className={styles.data}>
+            <h4>Released:</h4>
+            <span>{released}</span>
+            <h4>Genres:</h4>
+              <ul>
+                {genres && genres.map((genre)=>
+                <span>{genre}</span>
+                )}
+              </ul>
+            <h4>Platforms:</h4>
+              <ul>
+                {platforms && platforms.map((platform)=>
+                <span>{platform}</span>
+                )}
+              </ul>
+            <h4>Rating:</h4>
+            <span>{rating}</span>
+          </div>
+        </div>
+        <h4>Description:</h4>
+        <p>{description}</p>
       </div>
     );
   }
 
-
-function mapStateToProps(state){
-  return{
-    videogames: state.gamesLoaded,
-  }
-}
-
-
-// function mapDispatchToProps (dispatch) {
-//   return {
-//     addMovie: movie => dispatch (
-//       addMovieFavorite(movie)),
-//     getMovies: title => dispatch(getMovies(title)),
-//     getMovieDetail: id => dispatch(getMovieDetail(id))
-//   }
-// }
-
-// export default connect(mapStateToProps,mapDispatchToProps)(Buscador);
-
-export default connect(mapStateToProps,{getVideogames})(VideogameDetail);
+export default VideogameDetail;

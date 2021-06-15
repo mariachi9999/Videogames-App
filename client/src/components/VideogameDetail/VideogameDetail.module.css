@@ -1,0 +1,31 @@
+.cabecera {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.presentation {
+    display: flex;
+}
+
+
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image {
+    width: 55vw;
+    height: 55vh;
+    display: flex;
+    justify-content: left;
+    padding: 2px
+}
+
+h4, ul {
+    margin: 1vh
+}
+
+span {
+    padding: 1vw
+}
