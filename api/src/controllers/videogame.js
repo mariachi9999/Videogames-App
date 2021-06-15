@@ -59,7 +59,7 @@ async function getVideogames(req,res,next) {
                     genres: g.genres.map(genre=>genre.name),
                     rating: g.rating,
                     platforms: g.platforms.map(platform=>platform.platform.name),
-                    id: uuidv4(),
+                    id: g.id,
                     source: 'api'
                 })
             })
@@ -138,6 +138,9 @@ async function searchVideogames (req, res, next) {
 }
 
 async function getVideogameDetail(req,res,next){
+
+    console.log("Llegó el request al server")
+    console.log(req)
     
     try{
     const {id} = req.params;
@@ -159,10 +162,9 @@ async function getVideogameDetail(req,res,next){
         .get(`${BASE_URL}${BASE_VIDEOGAMES}/${id.toString()}?key=${RAWG_API_KEY}`, {
             responseType: "json"
         })
-        var {id:videogame_id, name, description, released, rating, platforms, background_image, genres} = videogame.data
+        var {id:videogame_id, name, description_raw: description, released, rating, platforms, background_image, genres} = videogame.data
     }
 
-    // res.json('ok')
     res.json({data: {
         id: videogame_id,
         name : name,
