@@ -11,7 +11,7 @@ const VideogameDetail = (props) =>  {
 
   const url_id = props.match.params.id;
 
-  const details = useSelector(state => state.movieDetail)
+  const details = useSelector(state => state.gameDetail)
   const dispatch = useDispatch()  
   
   useEffect(()=> 

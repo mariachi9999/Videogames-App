@@ -1,8 +1,8 @@
 const initialState = {
     gamesLoaded: [],
     gamesSearched: [],
-    movieDetail: {},
-    movieTotalResults: null,
+    gameDetail: {},
+    gamesTotalResults: null,
     genres: [],
     platforms: []
 };
@@ -31,7 +31,7 @@ const rootReducer = (state=initialState,action) => {
         case 'GET_VIDEOGAME_DETAIL':
             return {
                 ...state,
-                movieDetail: action.payload.data
+                gameDetail: action.payload.data
             }
         default:
             return {

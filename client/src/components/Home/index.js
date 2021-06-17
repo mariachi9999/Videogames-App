@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getVideogames } from "../../store/actions";
@@ -7,17 +7,26 @@ import { getVideogames } from "../../store/actions";
 import SearchBar from "../SearchBar/index";
 import styles from "./Home.module.css"
 
-
+import PagingBox from "../PagingBox";
 
 const Home = (props) =>  {
-    const videogames = useSelector(store=>store.gamesLoaded); 
+    
+  const videogames = useSelector(store=>store.gamesLoaded);
+ 
+  const dispatch = useDispatch()
+  
+  useEffect(()=>
+  dispatch(getVideogames()),
+  []) 
+  
+  const videogamesPerPage = 15;
+  const pages = Math.ceil(videogames.length / videogamesPerPage)
+  const [state,setState] = useState(1)
+  const page = (value)=>setState(value)
 
+  const endIndex = videogamesPerPage * state
+  const initIndex = endIndex - videogamesPerPage
 
-    const dispatch = useDispatch()
-    useEffect(()=>
-        dispatch(getVideogames(),
-        [])
-    ) 
 
     return (
       <div>
@@ -31,7 +40,7 @@ const Home = (props) =>  {
         <div id={styles.container}>
         {videogames.length > 0 ? 
         <ul className={styles.cards}>
-          {videogames && videogames.map(games =>
+          {videogames && videogames.slice(initIndex,endIndex).map(games =>
             <div key={games.id} className={styles.games}>
               <Link to={`/videogames/${games.id}`}>
                 <div>{games.name}</div>
@@ -44,7 +53,8 @@ const Home = (props) =>  {
         <div className={styles.loading}></div>
         }
         </div>
-      </div>
+        <PagingBox pages={pages} page={page}/>
+        </div>
     );
   }
 
