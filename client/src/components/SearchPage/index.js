@@ -13,12 +13,12 @@ const SearchPage = (props) =>  {
 
     const videogames = useSelector(store=>store.gamesSearched);
     
+    //Paginado
     const videogamesPerPage = 15;
     const pages = Math.ceil(videogames.length / videogamesPerPage)
-    const [state,setState] = useState(1)
-    const page = (value)=>setState(value)
-
-    const endIndex = videogamesPerPage * state
+    const [paginado,setPaginado] = useState(1)
+    const page = (value)=>setPaginado(value)
+    const endIndex = videogamesPerPage * paginado
     const initIndex = endIndex - videogamesPerPage
 
 

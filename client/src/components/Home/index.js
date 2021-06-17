@@ -8,24 +8,56 @@ import SearchBar from "../SearchBar/index";
 import styles from "./Home.module.css"
 
 import PagingBox from "../PagingBox";
+import FilterBox from "../FilterBox";
+
 
 const Home = (props) =>  {
     
-  const videogames = useSelector(store=>store.gamesLoaded);
- 
   const dispatch = useDispatch()
-  
   useEffect(()=>
   dispatch(getVideogames()),
   []) 
-  
+
+  const videogames = useSelector(store=>store.gamesLoaded);
+ 
+  //Filtro de genero
+  const [genre,setGenre] = useState([])
+  const selGenre = (value)=>setGenre(value)
+
+  console.log(videogames)
+  console.log(genre.length)
+  if(genre.length > 0){
+    
+    var genresToFilter = genre.split(",")
+    console.log(genresToFilter)
+    var filteredVideogames = []
+    console.log(filteredVideogames)
+    videogames.forEach(g=>{
+      for(let i=0; i < genresToFilter.length; i++){
+        if(g.genres && g.genres.includes(genresToFilter[i])){
+          filteredVideogames.push(g)
+        }
+      }})
+    console.log(filteredVideogames)
+  }
+
+  //       if(genresToFilter.includes(genre)){
+  //         filteredVideogames.push(g) 
+  //       }
+  //     })
+  //   })
+  //   console.log(filteredVideogames)
+  // }
+
+
+  //Paginado
   const videogamesPerPage = 15;
   const pages = Math.ceil(videogames.length / videogamesPerPage)
-  const [state,setState] = useState(1)
-  const page = (value)=>setState(value)
-
-  const endIndex = videogamesPerPage * state
+  const [paginado,setPaginado] = useState(1)
+  const page = (value)=>setPaginado(value)
+  const endIndex = videogamesPerPage * paginado
   const initIndex = endIndex - videogamesPerPage
+
 
 
     return (
@@ -54,7 +86,8 @@ const Home = (props) =>  {
         }
         </div>
         <PagingBox pages={pages} page={page}/>
-        </div>
+        <FilterBox genres={selGenre}/>
+      </div>
     );
   }
 

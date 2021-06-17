@@ -10,8 +10,6 @@ export const PagingBox = (props) => {
         pagesArray.push(i)
     }
 
-    console.log(pagesArray)
-    
     return (
         <div>
             <h4>PagingBox</h4>
@@ -29,6 +27,5 @@ export const PagingBox = (props) => {
         </div>
     )
 }
-
 
 export default PagingBox;
