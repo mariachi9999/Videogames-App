@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { getMovieDetail } from "../../store/actions";
+import { getVideogameDetail } from "../../store/actions";
 import styles from "./VideogameDetail.module.css"
 import SearchBar from "../SearchBar/index";
 
@@ -15,18 +15,18 @@ const VideogameDetail = (props) =>  {
   const dispatch = useDispatch()  
   
   useEffect(()=> 
-      dispatch(getMovieDetail(url_id)),
+      dispatch(getVideogameDetail(url_id)),
       []
     )
   
   const {description, genres, image, name, platforms, rating, released } = details; 
 
     return (
-      <div >
+      <div className={styles.body}>
         <div className={styles.cabecera}>
           <SearchBar/>
           <h2>{name}</h2>
-            <Link to={`/home`}>
+            <Link to={`/videogames`}>
               <button>Home</button>
             </Link>
         </div>

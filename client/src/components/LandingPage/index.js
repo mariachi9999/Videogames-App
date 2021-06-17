@@ -1,13 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { getVideogames } from "../../store/actions";
+import { getInfo } from "../../store/actions";
 import styles from "./landingPage.module.css"
 
 const LandingPage = (props) =>  {
- 
+
+    const dispatch = useDispatch()
+    dispatch(getInfo())
+
+
     return (
       <div className={styles.home} id={styles.contain}>
-        <Link to={`/home`}>
+        <Link to={`/videogames`}>
           <button className={styles.homeButton}>Busca tu videogame favorito!</button>
         </Link>
       </div>

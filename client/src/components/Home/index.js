@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
@@ -10,15 +10,13 @@ import styles from "./Home.module.css"
 
 
 const Home = (props) =>  {
-    
-    console.log(props.videogames)
-    
     const videogames = useSelector(store=>store.gamesLoaded); 
-    const dispatch = useDispatch()
 
+
+    const dispatch = useDispatch()
     useEffect(()=>
-        dispatch(getVideogames()),
-        []
+        dispatch(getVideogames(),
+        [])
     ) 
 
     return (

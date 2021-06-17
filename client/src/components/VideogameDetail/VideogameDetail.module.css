@@ -1,3 +1,10 @@
+.body {
+    width: 100vw;
+    height: 100vh;    
+    background-image: url("../../images/backimgdifu.jpg");
+    background-size: 100%;
+}
+
 .cabecera {
     display: flex;
     justify-content: space-evenly;

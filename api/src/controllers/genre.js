@@ -46,7 +46,7 @@ async function getGenres(req,res,next) {
           }}) 
     )
 
-    res.json({Respuesta : "Generos cargados"})
+    res.json({data : genresApi})
 
   } catch(err) {
        (err) => next(err);

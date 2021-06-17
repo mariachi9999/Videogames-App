@@ -1,9 +1,10 @@
 const initialState = {
     gamesLoaded: [],
-    moviesSearched: [],
+    gamesSearched: [],
     movieDetail: {},
     movieTotalResults: null,
-    genres: []
+    genres: [],
+    platforms: []
 };
 
 const rootReducer = (state=initialState,action) => {
@@ -14,13 +15,18 @@ const rootReducer = (state=initialState,action) => {
                 gamesLoaded: action.payload.data
             }
             ;
-        case 'GET_MOVIES':
+        case 'GET_INFO':
+            const genres = action.payload.genre.map(genre=>genre.name);
+            const platforms = action.payload.platforms.map(platform=>platform.name);
             return {
-                ...state
+                ...state,
+                genres: genres,
+                platforms: platforms
             }
-        case 'REMOVE_MOVIE_FAVORITE':
+        case 'SEARCH_VIDEOGAMES':
             return {
-                ...state
+                ...state,
+                gamesSearched: action.payload
             }
         case 'GET_VIDEOGAME_DETAIL':
             return {

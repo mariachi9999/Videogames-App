@@ -9,13 +9,13 @@ const { Op } = require("sequelize");
 async function addVideogame(req,res,next){
     
     const videogame = req.body;
-    
+
+    const genres = videogame.genres.slice(0,-1).split(",")
+
     if(!videogame) return res.sendStatus({
         error : 500,
         message : 'Usuario debe enviar un videogame.'
     });
-
-    const platformString = videogame.platforms.join(', ')
 
     try {
         let gameCreated = await Videogame.findOrCreate({
@@ -26,10 +26,10 @@ async function addVideogame(req,res,next){
                     description: videogame.description,
                     released: videogame.released,
                     rating: videogame.rating,
-                    platforms: platformString
+                    platforms: videogame.platforms.slice(0,-1)
                 }});
         
-        videogame.genres.forEach(async (G)=>{
+        genres.forEach(async (G)=>{
             let genresGame = await Genre.findOne({where: {name: G}})
             gameCreated[0].addGenre(genresGame)
         })    
@@ -41,7 +41,62 @@ async function addVideogame(req,res,next){
 }    
 
 async function getVideogames(req,res,next) {
+
+ 
+    const search = req.query.name; 
+    console.log(search)
+
+    if(search){
+            console.log("Entro a searchVideogames")
+            try{
+                const results = []
+        
+                const videogamesDB = await Videogame.findAll(
+                    {where:
+                        {name: {[Op.iLike]:`%${search}%`}}
+                    },
+                    {include : Genre })
+                    
+                const dataDB = videogamesDB.map(g=>({
+                        name: g.dataValues.name,
+                        genres: g.dataValues.genres,  
+                        image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
+                        rating: g.dataValues.rating,
+                        platforms: g.dataValues.platforms,
+                        id: g.dataValues.id,
+                        source: 'local'
+                    }))
+                    
+                dataDB.forEach(g=>results.push(g));
+        
+                const videogamesAPI = await axios
+                    .get(`${BASE_URL}${BASE_VIDEOGAMES}?key=${RAWG_API_KEY}&search=${search}`, {
+                        responseType: "json"
+                    })
+                
+                const dataAPI = videogamesAPI.data.results.map(g=>({
+                        name: g.name,
+                        image: g.background_image,
+                        genres: g.genres.map(genre=>genre.name),
+                        rating: g.rating,
+                        platforms: g.platforms.map(platform=>platform.platform.name),
+                        id: g.id,
+                        source: 'api'
+                    }))
+                    
+                const filteredDataAPI = dataAPI.filter(g => g.name.toLowerCase().includes(search.toLowerCase()) )
+                    
+                filteredDataAPI.forEach(g=>results.push(g));
+                   
+                return res.json(results)
+        
+                } catch (e) {
+                    next(e)
+                }
+    }
     
+    console.log("Entro a getVideogames")
+
     const videogamesPpal = [];
     
     try{
@@ -85,63 +140,108 @@ async function getVideogames(req,res,next) {
 
 }
 
-async function searchVideogames (req, res, next) {
-
-    const search = req.query.name;
+// async function getVideogames(req,res,next) {
     
-    try{
-        const results = []
+//     console.log("Entro a getVideogames")
 
-        const videogamesDB = await Videogame.findAll(
-            {where:
-                {name: {[Op.iLike]:`%${search}%`}}
-            },
-            {include : Genre })
-            
-        const dataDB = videogamesDB.map(g=>({
-                name: g.dataValues.name,
-                genres: g.dataValues.genres,  
-                image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
-                rating: g.dataValues.rating,
-                platforms: g.dataValues.platforms,
-                id: g.dataValues.id,
-                source: 'local'
-            }))
-            
-        dataDB.forEach(g=>results.push(g));
-
-        const videogamesAPI = await axios
-            .get(`${BASE_URL}${BASE_VIDEOGAMES}?key=${RAWG_API_KEY}&search=${search}`, {
-                responseType: "json"
-            })
+//     const videogamesPpal = [];
+    
+//     try{
+//         let apiRawg = `${BASE_URL}${BASE_VIDEOGAMES}?key=${RAWG_API_KEY}`
+//         for (let i=1; i<=5; i++){
+//             let resp = await axios
+//             .get(apiRawg, {
+//                 responseType: "json"
+//             })
+//             apiRawg = resp.data.next;
+//             resp.data.results.forEach(g=>{
+//                 videogamesPpal.push({
+//                     name: g.name,
+//                     image: g.background_image,
+//                     genres: g.genres.map(genre=>genre.name),
+//                     rating: g.rating,
+//                     platforms: g.platforms.map(platform=>platform.platform.name),
+//                     id: g.id,
+//                     source: 'api'
+//                 })
+//             })
+//         }
         
-        // console.log(videogamesAPI)    
-        const dataAPI = videogamesAPI.data.results.map(g=>({
-                name: g.name,
-                image: g.background_image,
-                genres: g.genres.map(genre=>genre.name),
-                rating: g.rating,
-                platforms: g.platforms.map(platform=>platform.platform.name),
-                id: uuidv4(),
-                source: 'api'
-            }))
-            
-        const filteredDataAPI = dataAPI.filter(g => g.name.toLowerCase().includes(search.toLowerCase()) )
-            
-        filteredDataAPI.forEach(g=>results.push(g));
-           
-        res.json(results)
 
-        } catch (e) {
-            next(e)
-        }
-}
+//         let videogamesAPI = await Videogame.findAll()
+//         videogamesAPI.forEach(g=> videogamesPpal.push({
+//                 name: g.dataValues.name,
+//                 genres: g.dataValues.genres,  
+//                 image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
+//                 rating: g.dataValues.rating,
+//                 platforms: g.dataValues.platforms,
+//                 id: g.dataValues.id,
+//                 source: 'local'
+//         }))
+        
+//         res.json({data: videogamesPpal})
+
+//     } catch (e) {
+//         next(e)
+//     }
+
+// }
+
+// async function searchVideogames (req, res, next) {
+
+//     console.log("Entro a searchVideogames")
+//     const search = req.query.name; 
+    
+//     try{
+//         const results = []
+
+//         const videogamesDB = await Videogame.findAll(
+//             {where:
+//                 {name: {[Op.iLike]:`%${search}%`}}
+//             },
+//             {include : Genre })
+            
+//         const dataDB = videogamesDB.map(g=>({
+//                 name: g.dataValues.name,
+//                 genres: g.dataValues.genres,  
+//                 image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
+//                 rating: g.dataValues.rating,
+//                 platforms: g.dataValues.platforms,
+//                 id: g.dataValues.id,
+//                 source: 'local'
+//             }))
+            
+//         dataDB.forEach(g=>results.push(g));
+
+//         const videogamesAPI = await axios
+//             .get(`${BASE_URL}${BASE_VIDEOGAMES}?key=${RAWG_API_KEY}&search=${search}`, {
+//                 responseType: "json"
+//             })
+        
+//         // console.log(videogamesAPI)    
+//         const dataAPI = videogamesAPI.data.results.map(g=>({
+//                 name: g.name,
+//                 image: g.background_image,
+//                 genres: g.genres.map(genre=>genre.name),
+//                 rating: g.rating,
+//                 platforms: g.platforms.map(platform=>platform.platform.name),
+//                 id: uuidv4(),
+//                 source: 'api'
+//             }))
+            
+//         const filteredDataAPI = dataAPI.filter(g => g.name.toLowerCase().includes(search.toLowerCase()) )
+            
+//         filteredDataAPI.forEach(g=>results.push(g));
+           
+//         res.json(results)
+
+//         } catch (e) {
+//             next(e)
+//         }
+// }
 
 async function getVideogameDetail(req,res,next){
 
-    console.log("Llegó el request al server")
-    console.log(req)
-    
     try{
     const {id} = req.params;
     var videogame = undefined;
@@ -187,5 +287,5 @@ module.exports = {
     addVideogame,
     getVideogames,
     getVideogameDetail,
-    searchVideogames
+    // searchVideogames
 }

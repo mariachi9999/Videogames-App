@@ -7,14 +7,17 @@ import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 import VideogameDetail from "./components/VideogameDetail";
 import VideogameCreation from "./components/VideogameCreation";
-
+import SearchPage from './components/SearchPage';
+import Mother from "./components/Mother/index"
 
 function App() {
   return (
     <div className="App">
       <Route exact path="/" component={LandingPage}/>
-      <Route path="/home" component={Home} />
-      <Route path="/videogames/:id" render={({match})=> <VideogameDetail match={match}/>}/>
+      <Route exact path="/videogames" render={({location})=> <Mother location={location}/>}/>
+      {/* <Route exact path="/videogames" component={Home}/>
+      <Route exact path="/videogames?name" component={SearchPage}/> */}
+      <Route exact path="/videogames/:id" render={({match})=> <VideogameDetail match={match}/>}/>
       <Route exact path="/videogame" component={VideogameCreation} />
     </div>
   );

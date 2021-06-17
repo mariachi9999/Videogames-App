@@ -11,3 +11,7 @@
 .label {
     display: flex
 }
+
+.filterButton {
+    display: flex
+}
