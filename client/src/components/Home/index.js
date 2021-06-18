@@ -18,37 +18,45 @@ const Home = (props) =>  {
   dispatch(getVideogames()),
   []) 
 
-  const videogames = useSelector(store=>store.gamesLoaded);
+  var videogames = useSelector(store=>store.gamesLoaded);
  
   //Filtro de genero
   const [genre,setGenre] = useState([])
   const selGenre = (value)=>setGenre(value)
 
-  console.log(videogames)
-  console.log(genre.length)
   if(genre.length > 0){
-    
     var genresToFilter = genre.split(",")
-    console.log(genresToFilter)
-    var filteredVideogames = []
-    console.log(filteredVideogames)
+    var filtGamesGenre = []
     videogames.forEach(g=>{
       for(let i=0; i < genresToFilter.length; i++){
         if(g.genres && g.genres.includes(genresToFilter[i])){
-          filteredVideogames.push(g)
+          filtGamesGenre.push(g)
         }
       }})
-    console.log(filteredVideogames)
   }
 
-  //       if(genresToFilter.includes(genre)){
-  //         filteredVideogames.push(g) 
-  //       }
-  //     })
-  //   })
-  //   console.log(filteredVideogames)
-  // }
+  if(filtGamesGenre){
+    videogames = filtGamesGenre
+  }
 
+  //Filtro de source
+  const [source,setSource] = useState([])
+  const selSource = (value)=>setSource(value)
+ 
+  if(source.length > 0){
+    var sourceToFilter = source.split(",")
+    var filtGamesSource = []
+    videogames.forEach(g=>{
+      for(let i=0; i < sourceToFilter.length-1; i++){
+        if(g.source && g.source === sourceToFilter[i]){
+          filtGamesSource.push(g)
+        }
+      }})
+  }
+
+  if(filtGamesSource){
+    videogames = filtGamesSource
+  }
 
   //Paginado
   const videogamesPerPage = 15;
@@ -58,6 +66,9 @@ const Home = (props) =>  {
   const endIndex = videogamesPerPage * paginado
   const initIndex = endIndex - videogamesPerPage
 
+  useEffect(()=>
+  setPaginado(1),
+  [genre])
 
 
     return (
@@ -86,7 +97,7 @@ const Home = (props) =>  {
         }
         </div>
         <PagingBox pages={pages} page={page}/>
-        <FilterBox genres={selGenre}/>
+        <FilterBox genres={selGenre} source={selSource}/>
       </div>
     );
   }

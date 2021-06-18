@@ -35,7 +35,11 @@ export const FilterBox = (props) => {
 
     useEffect(()=>
     props.genres(state.genres),
-    [state.genres]) 
+    [state.genres])
+    
+    useEffect(()=>
+    props.source(state.source),
+    [state.source])
 
   
     const handleCross = event =>{
@@ -53,24 +57,46 @@ export const FilterBox = (props) => {
         <div>
             <h4>FilterBox</h4>
             <div id={styles.genresContainer}>
-                <label>Genres:</label>
+                <label className={styles.label}>Genres:</label>
                     <select 
                         id="genres"
                         value={state.genres}
-                        size="5">
+                        size="5"
+                        className={styles.genresOpt}>
                         {genresOpt && genresOpt.map(genre=>
                         <option value={genre} onClick={handleClick} name="genre">{genre}</option>)}
                     </select>
+                    <div className="filterButton">
+                        {
+                          state.genres && state.genres.split(",").filter(g=>g.length>0).map(g=>
+                            <span className="filterButton">
+                              <span className="filterButton">{g}</span>
+                              <button className="filterButton" onClick={handleCross} name="genre" value={g}>X</button>
+                            </span>
+                            )
+                          }
+                    </div>
             </div>
-            <div className="filterButton">
-                {
-                  state.genres && state.genres.split(",").filter(g=>g.length>0).map(g=>
-                    <span className="filterButton">
-                      <span className="filterButton">{g}</span>
-                      <button className="filterButton" onClick={handleCross} name="genre" value={g}>X</button>
-                    </span>
-                    )
-                }
+            <div id={styles.genresContainer}>
+                <label className={styles.label}>Source:</label>
+                    <select 
+                        id="source"
+                        value={state.source}
+                        size="2"
+                        className={styles.genresOpt}>
+                        {sourceOpt && sourceOpt.map(source=>
+                        <option value={source} onClick={handleClick} name="source">{source}</option>)}
+                    </select>
+                    <div className="filterButton">
+                        {
+                          state.source && state.source.split(",").filter(s=>s.length>0).map(s=>
+                            <span className="filterButton">
+                              <span className="filterButton">{s}</span>
+                              <button className="filterButton" onClick={handleCross} name="source" value={s}>X</button>
+                            </span>
+                            )
+                          }
+                    </div>
             </div>
         </div>
     )

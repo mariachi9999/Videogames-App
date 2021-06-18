@@ -1,5 +1,5 @@
 #genresContainer {
-    display: block
+    display: flex;
 }
 
 #sourceContainer {
@@ -8,4 +8,8 @@
 
 #genreName {
     display: block
+}
+
+.label{
+    display: flex;
 }

@@ -52,10 +52,10 @@ async function getVideogames(req,res,next) {
                 const results = []
         
                 const videogamesDB = await Videogame.findAll(
-                    {where:
+                    {where: 
                         {name: {[Op.iLike]:`%${search}%`}}
                     },
-                    {include : Genre })
+                    {include : [Genre] })
                     
                 const dataDB = videogamesDB && videogamesDB.map(g=>({
                         name: g.dataValues.name,
@@ -134,10 +134,10 @@ async function getVideogames(req,res,next) {
         }
         
 
-        let videogamesAPI = await Videogame.findAll()
+        let videogamesAPI = await Videogame.findAll({ include: [Genre] })
         videogamesAPI.forEach(g=> videogamesPpal.push({
                 name: g.dataValues.name,
-                genres: g.dataValues.genres,  
+                genres: g.dataValues.genres.map(genre=>genre.name),  
                 image: `https://i.ebayimg.com/images/g/rcUAAOSwll1WulW3/s-l500.jpg`,
                 rating: g.dataValues.rating,
                 platforms: g.dataValues.platforms,
