@@ -1,0 +1,16 @@
+#orderBox {
+    display: initial
+}
+
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+
+#cbox1 {
+    padding: 1%;
+    margin: 1px;
+    min-width: 2px;
+    background-color: red;
+}

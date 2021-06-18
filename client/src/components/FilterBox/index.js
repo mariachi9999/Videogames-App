@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import styles from "./FilterBox.module.css"
+import { filterGenres, filterSource } from "../../store/actions";
+
 
 export const FilterBox = (props) => {
     
     const genresOpt = useSelector(store=>store.genres);
-    const sourceOpt = ["api","local"];
+    const sourceOpt = useSelector(store=>store.source);
   
     const [state,setState]= useState({
         genres:"",
@@ -33,15 +35,6 @@ export const FilterBox = (props) => {
       }
     }
 
-    useEffect(()=>
-    props.genres(state.genres),
-    [state.genres])
-    
-    useEffect(()=>
-    props.source(state.source),
-    [state.source])
-
-  
     const handleCross = event =>{
       if(event.target.attributes[1].value === "genre"){
         let newGenres = state.genres.split(",").filter(g=>g !== event.target.value).join();
@@ -52,6 +45,19 @@ export const FilterBox = (props) => {
         setState({...state, source: newSource })
       }
     }
+
+    const dispatch = useDispatch()
+
+    useEffect(()=>
+    dispatch(filterGenres(state.genres)),
+    [state.genres])
+    
+    useEffect(()=>
+    dispatch(filterSource(state.source)),
+    [state.source])
+
+  
+
 
     return (
         <div>

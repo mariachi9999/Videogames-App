@@ -3,8 +3,13 @@ const initialState = {
     gamesSearched: [],
     gameDetail: {},
     gamesTotalResults: null,
-    genres: [],
-    platforms: []
+    filteredGenres: [],
+    platforms: [],
+    genre: [],
+    source: ["api","local"],
+    filteredSources: [],
+    alphabetical: "",
+    rating: ""
 };
 
 const rootReducer = (state=initialState,action) => {
@@ -33,6 +38,26 @@ const rootReducer = (state=initialState,action) => {
                 ...state,
                 gameDetail: action.payload.data
             }
+        case 'FILTER_GENRES':
+            return {
+                ...state,
+                filteredGenres: action.payload
+            }
+        case 'FILTER_SOURCE':
+            return {
+                ...state,
+                filteredSources: action.payload
+            }
+        case 'ORDER_ALPHABETICAL':
+            return {
+                ...state,
+                alphabetical: action.payload
+            }
+        case 'ORDER_RATING':
+            return {
+                ...state,
+                rating: action.payload
+            }           
         default:
             return {
                 ...state

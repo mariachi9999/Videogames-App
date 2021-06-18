@@ -9,53 +9,85 @@ import styles from "./Home.module.css"
 
 import PagingBox from "../PagingBox";
 import FilterBox from "../FilterBox";
+import OrderBox from "../OrderBox/OrderBox";
 
 
 const Home = (props) =>  {
     
   const dispatch = useDispatch()
-  useEffect(()=>
-  dispatch(getVideogames()),
-  []) 
+
+  useEffect(()=> dispatch(getVideogames()), []) 
 
   var videogames = useSelector(store=>store.gamesLoaded);
- 
+  
   //Filtro de genero
-  const [genre,setGenre] = useState([])
-  const selGenre = (value)=>setGenre(value)
-
+  var genre = useSelector(store=>store.filteredGenres)
   if(genre.length > 0){
     var genresToFilter = genre.split(",")
     var filtGamesGenre = []
     videogames.forEach(g=>{
       for(let i=0; i < genresToFilter.length; i++){
         if(g.genres && g.genres.includes(genresToFilter[i])){
-          filtGamesGenre.push(g)
-        }
+          filtGamesGenre.push(g)}
       }})
   }
 
   if(filtGamesGenre){
-    videogames = filtGamesGenre
-  }
+    videogames = filtGamesGenre}
 
   //Filtro de source
-  const [source,setSource] = useState([])
-  const selSource = (value)=>setSource(value)
- 
+  var source = useSelector(store=>store.filteredSources)
   if(source.length > 0){
     var sourceToFilter = source.split(",")
     var filtGamesSource = []
     videogames.forEach(g=>{
       for(let i=0; i < sourceToFilter.length-1; i++){
         if(g.source && g.source === sourceToFilter[i]){
-          filtGamesSource.push(g)
-        }
+          filtGamesSource.push(g)}
       }})
   }
 
   if(filtGamesSource){
     videogames = filtGamesSource
+  }
+
+  //Filtro de ordenamiento alfabético
+  const alphabetical = useSelector(store=>store.alphabetical);
+
+  if(videogames){
+    if(alphabetical){
+      var gamesLowerCase = []
+      var gamesLower = [...videogames];
+      gamesLower.forEach(g=>{
+        g.name = g.name.toLowerCase();
+        gamesLowerCase.push(g)
+      })
+      var gamesLowerSort = 
+        gamesLowerCase.sort(function (a, b) {
+        if (a.name > b.name) {return 1;}
+        if (a.name < b.name) {return -1;}
+        return 0;
+       })
+    }
+    
+    if(alphabetical === 'descendent'){
+      gamesLowerSort.reverse()
+    }
+
+    ///// Acá agarro ya el array ordenado y le pongo mayúscula
+    var gamesSortedOK= []
+    var gamesSorted = [...gamesLowerSort];
+    gamesSorted.forEach(g=>{
+      let nombre = g.name.split("")
+      nombre[0] = nombre[0].toUpperCase()
+      let nombreCorregido = nombre.join("")
+      g.name = nombreCorregido;
+      gamesSortedOK.push(g)
+    })
+  }
+
+  if(gamesSortedOK){
+    videogames = gamesSortedOK
   }
 
   //Paginado
@@ -97,7 +129,8 @@ const Home = (props) =>  {
         }
         </div>
         <PagingBox pages={pages} page={page}/>
-        <FilterBox genres={selGenre} source={selSource}/>
+        <FilterBox/>
+        <OrderBox /> 
       </div>
     );
   }

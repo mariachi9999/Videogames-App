@@ -69,5 +69,42 @@ export const addVideogame = function (payload) {
     }
 }
 
-export const searchVideogames = function (name) {
+export const filterGenres = function (value) {
+    return function(dispatch){
+        dispatch(
+            {type: "FILTER_GENRES",
+            payload: value
+            }
+        )
+    }
+}
+
+export const filterSource = function (value) {
+    return function(dispatch){
+        dispatch(
+            {type: "FILTER_SOURCE",
+            payload: value
+            }
+        )
+    }
+}
+
+export const orderAlphabetical = function (value) {
+    return function(dispatch){
+        dispatch(
+            {type: "ORDER_ALPHABETICAL",
+            payload: value
+            }
+        )
+    }
+}
+
+export const orderRating = function (value) {
+    return function(dispatch){
+        dispatch(
+            {type: "ORDER_RATING",
+            payload: value
+            }
+        )
+    }
 }
