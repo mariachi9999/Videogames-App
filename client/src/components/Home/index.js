@@ -50,11 +50,14 @@ const Home = (props) =>  {
   if(filtGamesSource){
     videogames = filtGamesSource
   }
-
-  //Filtro de ordenamiento alfabético
+  
+  //Filtros de ordenamiento
   const alphabetical = useSelector(store=>store.alphabetical);
+  const rating = useSelector(store=>store.rating);
 
   if(videogames){
+    
+    ///Filtro de ordenamiento alfabético
     if(alphabetical){
       var gamesLowerCase = []
       var gamesLower = [...videogames];
@@ -68,13 +71,13 @@ const Home = (props) =>  {
         if (a.name < b.name) {return -1;}
         return 0;
        })
-    }
-    
+       
     if(alphabetical === 'descendent'){
       gamesLowerSort.reverse()
     }
 
     ///// Acá agarro ya el array ordenado y le pongo mayúscula
+    if(gamesLowerSort){
     var gamesSortedOK= []
     var gamesSorted = [...gamesLowerSort];
     gamesSorted.forEach(g=>{
@@ -83,12 +86,31 @@ const Home = (props) =>  {
       let nombreCorregido = nombre.join("")
       g.name = nombreCorregido;
       gamesSortedOK.push(g)
+    })}
+
+    if(gamesSortedOK){
+      videogames = gamesSortedOK
+    }
+  }
+    
+  //Filtro de ordenamiento por rating
+  if(rating){
+    var gamesRatingSort = 
+      videogames.sort(function (a, b) {
+      if (a.rating > b.rating) {return 1;}
+      if (a.rating < b.rating) {return -1;}
+      return 0;
     })
+
+  if(rating === "descendent"){
+    gamesRatingSort.reverse()
   }
 
-  if(gamesSortedOK){
-    videogames = gamesSortedOK
+  if(gamesRatingSort){
+    videogames = gamesRatingSort}
   }
+}
+
 
   //Paginado
   const videogamesPerPage = 15;

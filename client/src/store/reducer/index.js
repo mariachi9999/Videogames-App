@@ -2,10 +2,8 @@ const initialState = {
     gamesLoaded: [],
     gamesSearched: [],
     gameDetail: {},
-    gamesTotalResults: null,
     filteredGenres: [],
     platforms: [],
-    genre: [],
     source: ["api","local"],
     filteredSources: [],
     alphabetical: "",
@@ -51,12 +49,14 @@ const rootReducer = (state=initialState,action) => {
         case 'ORDER_ALPHABETICAL':
             return {
                 ...state,
-                alphabetical: action.payload
+                alphabetical: action.payload,
+                rating: ""
             }
         case 'ORDER_RATING':
             return {
                 ...state,
-                rating: action.payload
+                rating: action.payload,
+                alphabetical: ""
             }           
         default:
             return {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styles from "./FilterBox.module.css"
 import { filterGenres, filterSource } from "../../store/actions";
@@ -51,13 +51,21 @@ export const FilterBox = (props) => {
     useEffect(()=>
     dispatch(filterGenres(state.genres)),
     [state.genres])
+
     
     useEffect(()=>
     dispatch(filterSource(state.source)),
     [state.source])
-
-  
-
+    
+    // const isInitialMount = useRef(true);
+    // useEffect(() => {
+    //   if (isInitialMount.current) {
+    //     isInitialMount.current = false;
+    //   } else {
+    //       // Your useEffect code here to be run on update
+    //     dispatch(filterGenres(state.genres))
+    //   }
+    // },[state.genres]);
 
     return (
         <div>
