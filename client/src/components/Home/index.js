@@ -10,15 +10,24 @@ import styles from "./Home.module.css"
 import PagingBox from "../PagingBox";
 import FilterBox from "../FilterBox";
 import OrderBox from "../OrderBox/OrderBox";
+import Footer from "../Footer/index.js"
 
 
 const Home = (props) =>  {
     
+  console.log(window.location)
+
   const dispatch = useDispatch()
 
-  useEffect(()=> dispatch(getVideogames()), []) 
+  // useEffect(()=> dispatch(getVideogames()), []) 
 
-  var videogames = useSelector(store=>store.gamesLoaded);
+  var videogamesSearched = useSelector(store=>store.gamesSearched) 
+  var videogamesLoaded = useSelector(store=>store.gamesLoaded);
+  
+  if(window.location.search.includes("name")){
+  var videogames = videogamesSearched
+  } else {var videogames= videogamesLoaded}
+  
   
   //Filtro de genero
   var genre = useSelector(store=>store.filteredGenres)
@@ -111,9 +120,8 @@ const Home = (props) =>  {
   }
 }
 
-
   //Paginado
-  const videogamesPerPage = 15;
+  const videogamesPerPage = 9;
   const pages = Math.ceil(videogames.length / videogamesPerPage)
   const [paginado,setPaginado] = useState(1)
   const page = (value)=>setPaginado(value)
@@ -126,33 +134,77 @@ const Home = (props) =>  {
 
 
     return (
-      <div>
-        <div className={styles.cabecera}>
-          <SearchBar className={styles.searchbar}/>
-          <h1>Videogames!</h1>
-          <Link to={`/videogame`}>
-                <button>Add a Videogame!</button>
-          </Link>
+      <div id={styles.containerPpal}>
+        
+        {/* Cabecera*/}
+        <div id={styles.containerHeader}>
+          <div id={styles.addGame}>
+            <Link to={`/videogame`}>
+              <button id={styles.boton}>Add a Videogame!</button>
+            </Link>
+          </div>
+          <div id={styles.title}>
+            <h1>Videogames!</h1>
+          </div>
+          <div id={styles.searchbar}>
+            <SearchBar/>
+          </div>
         </div>
-        <div id={styles.container}>
-        {videogames.length > 0 ? 
-        <ul className={styles.cards}>
-          {videogames && videogames.slice(initIndex,endIndex).map(games =>
-            <div key={games.id} className={styles.games}>
-              <Link to={`/videogames/${games.id}`}>
-                <div>{games.name}</div>
-              </Link>
-              <img src={games.image} alt="alternatetext"/> 
-            </div> 
-          )}
-        </ul>
-        : 
-        <div className={styles.loading}></div>
-        }
+
+
+        {/* Cuerpo */}
+        <div id={styles.containerCuerpoPpal}>
+
+          <div id={styles.filtros}>
+            <div id={styles.filterBox}>
+              <FilterBox/>
+            </div>
+            <div id={styles.orderBox}>
+              <OrderBox />
+            </div>
+          </div>
+
+          <div id={styles.videogamesBox}>
+
+            <div id={styles.cardsContainer}>
+              {videogames.length > 0 ? 
+              <div className={styles.cards}>
+                {videogames && videogames.slice(initIndex,endIndex).map(games =>
+                  <div key={games.id} className={styles.games}>
+                    <div className={styles.gameTitle}>
+                      <Link to={`/videogames/${games.id}`} className={styles.navLink}>
+                        <span className={styles.colorTitle}>{games.name}</span>
+                      </Link>
+                    </div>
+                    <div className={styles.gameImage}>
+                      <img src={games.image} alt="alternatetext" className={styles.cardImage}/>
+                    </div>
+                    <div className={styles.gameGenres}>
+                      {games.genres && games.genres.map(g=>
+                        <span>{g}</span>  
+                      )}
+                    </div> 
+                  </div> 
+                )}
+              </div>
+              : 
+              <div className={styles.loading}></div>
+              }
+            </div>
+
+            <div id={styles.paginado}>
+              <PagingBox pages={pages} page={page}/>
+            </div>
+
+          </div>
+
         </div>
-        <PagingBox pages={pages} page={page}/>
-        <FilterBox/>
-        <OrderBox /> 
+
+        {/* Footer */}
+        <div id={styles.containerFooter}>
+          <Footer/> 
+        </div>
+
       </div>
     );
   }

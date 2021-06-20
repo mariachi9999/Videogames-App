@@ -36,11 +36,12 @@ export const FilterBox = (props) => {
     }
 
     const handleCross = event =>{
-      if(event.target.attributes[1].value === "genre"){
+      console.log(event)
+      if(event.target.attributes[0].value === "genre"){
         let newGenres = state.genres.split(",").filter(g=>g !== event.target.value).join();
         setState({...state, genres: newGenres })
       }
-      if(event.target.attributes[1].value === "source"){
+      if(event.target.attributes[0].value === "source"){
         let newSource = state.source.split(",").filter(s=>s !== event.target.value).join();
         setState({...state, source: newSource })
       }
@@ -68,31 +69,36 @@ export const FilterBox = (props) => {
     // },[state.genres]);
 
     return (
-        <div>
-            <h4>FilterBox</h4>
-            <div id={styles.genresContainer}>
-                <label className={styles.label}>Genres:</label>
-                    <select 
-                        id="genres"
-                        value={state.genres}
-                        size="5"
-                        className={styles.genresOpt}>
-                        {genresOpt && genresOpt.map(genre=>
-                        <option value={genre} onClick={handleClick} name="genre">{genre}</option>)}
-                    </select>
-                    <div className="filterButton">
-                        {
-                          state.genres && state.genres.split(",").filter(g=>g.length>0).map(g=>
-                            <span className="filterButton">
-                              <span className="filterButton">{g}</span>
-                              <button className="filterButton" onClick={handleCross} name="genre" value={g}>X</button>
-                            </span>
-                            )
-                          }
-                    </div>
+        <div id={styles.container}>
+
+            <div id={styles.genreContainer}>
+              <div className={styles.title}>
+                <h4>Filter by Genre</h4>
+              </div>
+              <div id={styles.listSelection}>
+                <select 
+                  id="genres"
+                  value={state.genres}
+                  size="3"
+                  className={styles.genresOpt}>
+                  {genresOpt && genresOpt.map(genre=>
+                  <option value={genre} onClick={handleClick} name="genre">{genre}</option>)}
+                </select>
+              </div>
+              <div id={styles.filterOptBox}>
+                  {
+                    state.genres && state.genres.split(",").filter(g=>g.length>0).map(g=>
+                      <div className={styles.options}>
+                        <span className={styles.genresSelNames}>{g}</span>
+                        <button onClick={handleCross} name="genre" value={g}>X</button>
+                      </div>
+                      )
+                    }
+              </div>
             </div>
-            <div id={styles.genresContainer}>
-                <label className={styles.label}>Source:</label>
+
+            <div id={styles.sourceContainer}>
+                <h4>Filter by source</h4>
                     <select 
                         id="source"
                         value={state.source}
@@ -106,7 +112,7 @@ export const FilterBox = (props) => {
                           state.source && state.source.split(",").filter(s=>s.length>0).map(s=>
                             <span className="filterButton">
                               <span className="filterButton">{s}</span>
-                              <button className="filterButton" onClick={handleCross} name="source" value={s}>X</button>
+                              <button onClick={handleCross} name="source" value={s}>X</button>
                             </span>
                             )
                           }

@@ -6,7 +6,7 @@ import SearchPage from "../SearchPage/index"
 const Mother = (props) =>  {
     
     console.log(props.location)
-    const search = props.location.search
+    const search = undefined
 
     if(search){
         return (

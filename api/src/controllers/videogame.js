@@ -97,10 +97,7 @@ async function getVideogames(req,res,next) {
                         
                     filteredDataAPI.forEach(g=>results.push(g));
                 }
-    
 
-                
-                   
                 return res.json(results)
         
                 } catch (e) {
@@ -152,7 +149,6 @@ async function getVideogames(req,res,next) {
     }
 
 }
-
 
 async function getVideogameDetail(req,res,next){
 

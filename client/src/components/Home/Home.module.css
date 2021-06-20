@@ -1,7 +1,107 @@
-.cabecera {
+#containerPpal {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    height: 100vh;
+    background-color: gray;
 }
+
+/* La página estará dividida en 3 partes*/
+#containerHeader{
+    background-color:black ;
+    color: cornsilk;
+    display: flex;
+    width: 100%;
+    height: 10%;
+    align-items: center;
+}
+
+#containerCuerpoPpal{
+    display: flex;
+    width: 100%;
+    height: 85%;
+    border: 1px solid whitesmoke
+
+}
+
+#containerFooter{
+    background-color: black;
+    color: whitesmoke;
+    display: flex;
+    width: 100%;
+    height: 5%;
+    border: 1px solid whitesmoke
+
+}
+
+
+/* Estilos del container header*/
+#addGame{
+    width: 25%;
+}
+
+#title{
+    width: 50%;
+}
+
+#searchbar{
+    display: flex;
+    width: 25%;
+}
+
+/* Estilos del container Cuerpo Ppal*/
+#filtros {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    color: black;
+}
+
+#videogamesBox {
+    background-image: "../../images/backimgdifu.jpg";
+    width: 85%;
+    /* padding: 0;
+    margin: 0; */
+}
+
+#cardsContainer {
+    height: 93%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    border: 2px solid whitesmoke;
+
+}
+
+#paginado {
+    display: flex;
+    align-items: center;
+    height: 7%;
+}
+
+/* Estilos del container filtros*/
+#filterBox{
+    background-image: "../../images/backimg.jpg";
+    width: 100%;
+    height: 60%;
+    display: flex;
+    border: 1px solid whitesmoke
+
+}
+
+#orderBox{
+    background-image: "../../images/backimgdifu.jpg";
+    color: black;
+    display: flex;
+    height: 40%;
+    width: 100%;
+    border: 1px solid whitesmoke
+
+}
+
+
+
+
+
 
 #container {
     width: 100vw;
@@ -14,21 +114,62 @@
 }
 
 .cards {
-    height: 100%;
+    height: 99%;
+    width: 99%;
     overflow: hidden;
+    background-image: url("../../images/backimgdifu.jpg");
+    /* background-color: black; */
 }
 
 .games {
     display: inline-flex;
     flex-direction: column;
-    width: 15vw;
-    height: 20vh;
-    background-color: red;
+    width: 24vw;
+    height: 23vh;
+    background-color: black;
+    color: cornsilk;
     margin: 10px;
     overflow: hidden;
+    border: 1px solid black;
+    border-radius: 5px;
+
 }
 
-img {
-    width: 20vw;
-    height: auto;
+.gameTitle{
+    height: 15%;
+}
+
+
+.gameImage {
+    height: 70%;
+    background-image: url("../../images/backimg.jpg");
+    
+}
+
+.gameGenres {
+    height: 15%;
+    font-size: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardImage {
+    width: 75%;
+    height: 100%;
+}
+
+.navLink {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}    
+
+#boton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 125%;
+    border-radius: 5px;
+    text-decoration: none;
 }

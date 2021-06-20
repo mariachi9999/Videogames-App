@@ -26,18 +26,18 @@ const SearchBar = () =>  {
 
     return (
         <div id={styles.buscador}>
-            <label>Buscar: </label>
-            <form>
+            <form id={styles.form}>
                 <input 
-                type="text" 
-                placeholder="Busca tu videogame favorito :)"
-                value={state.name}
-                name= "name"
-                onChange={(e) => handleChange(e)}
-                >
+                    type="text" 
+                    placeholder="Busca tu videogame favorito :)"
+                    value={state.name}
+                    name= "name"
+                    onChange={(e) => handleChange(e)}
+                    id={styles.barra}
+                    >
                 </input>
                 <Link to={`/videogames?name=${state.name}`}>
-                    <button type="submit" onClick={(e)=>handleSubmit(e)}>Buscar!</button>
+                    <button type="submit" onClick={(e)=>handleSubmit(e)} id={styles.boton}>Buscar!</button>
                 </Link>
             </form>
         </div>

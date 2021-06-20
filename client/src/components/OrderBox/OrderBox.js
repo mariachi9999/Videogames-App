@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import styles from "./OrderBox.module.css"
 import { orderAlphabetical, orderRating } from "../../store/actions";
+import styles from "./OrderBox.module.css"
 
 
 export const OrderBox = (props) => {
@@ -49,17 +49,28 @@ export const OrderBox = (props) => {
     )
 
     return (
-        <div id={styles.orderBox}>
-            <h4>Order Box</h4>
+        <div id={styles.container}>
             <div className={styles.nameContainer}>
-                <label className={styles.label}>Order by name:</label>
-                <label><input type="checkbox" id="cbox1" field="alphabetical" value="ascendent" onClick={handleClick}/>Ascendent</label>
-                <label><input type="checkbox" id="cbox2" field="alphabetical" value="descendent" onClick={handleClick}/>Descendent</label>
+                <h4>Order by name</h4>
+                <div className={styles.options}>
+                    <input type="checkbox" id="cbox1" field="alphabetical" value="ascendent" onClick={handleClick} className={styles.cbox}/>
+                    <label className={styles.label}>Ascendent</label>
+                </div>
+                <div className={styles.options}>
+                    <input type="checkbox" id="cbox2" field="alphabetical" value="descendent" onClick={handleClick} className={styles.cbox}/>
+                    <label className={styles.label}>Descendent</label>
+                </div>
             </div>
             <div className={styles.nameContainer}>
-                <label className={styles.label}>Order by rating:</label>
-                <label><input type="checkbox" id="cbox4" field="rating" value="descendent" onClick={handleClick}/> Top to bottom</label>
-                <label><input type="checkbox" id="cbox3" field="rating" value="ascendent" onClick={handleClick}/> Bottom to Top</label>
+                <h4>Order by rating</h4>
+                <div className={styles.options}>
+                    <input type="checkbox" id="cbox4" field="rating" value="descendent" onClick={handleClick} className={styles.cbox}/> 
+                    <label className={styles.label}>Top to bottom</label>
+                </div>
+                <div className={styles.options}>
+                    <input type="checkbox" id="cbox3" field="rating" value="ascendent" onClick={handleClick} className={styles.cbox}/> 
+                    <label className={styles.label}>Bottom to Top</label>
+                </div>
             </div>
         </div>
     )

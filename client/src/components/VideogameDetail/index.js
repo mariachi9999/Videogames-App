@@ -23,16 +23,24 @@ const VideogameDetail = (props) =>  {
 
     return (
       <div className={styles.body}>
-        <div className={styles.cabecera}>
-          <SearchBar/>
-          <h2>{name}</h2>
+        {/* Cabecera*/}
+        <div id={styles.containerHeader}>
+          <div id={styles.addGame}>
             <Link to={`/videogames`}>
-              <button>Home</button>
+              <button id={styles.boton}>Home</button>
             </Link>
+          </div>
+          <div id={styles.title}>
+            <h1>Videogames!</h1>
+          </div>
+          <div id={styles.searchbar}>
+            <SearchBar/>
+          </div>
         </div>
         <div className={styles.presentation}>
           <img src={image} alt={image} className={styles.image}/>
           <div className={styles.data}>
+            <h2>{name}</h2>              
             <h4>Released:</h4>
             <span>{released}</span>
             <h4>Genres:</h4>
@@ -51,8 +59,10 @@ const VideogameDetail = (props) =>  {
             <span>{rating}</span>
           </div>
         </div>
-        <h4>Description:</h4>
-        <p>{description}</p>
+        <div className={styles.description}>
+          <h3>Description:</h3>
+          <p>{description}</p>
+        </div>
       </div>
     );
   }

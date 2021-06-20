@@ -11,17 +11,16 @@ export const PagingBox = (props) => {
     }
 
     return (
-        <div>
-            <h4>PagingBox</h4>
-            <div id={styles.container}>
+        <div id={styles.container}>
+            <div id={styles.contenedorNumbers}>
                 {pagesArray.length > 0 ? 
-                <ul id={styles.numbers}>
+                <div className={styles.numbers}>
                 {pagesArray && pagesArray.map(page =>
-                    <button key={page} onClick={()=>props.page(page)}>{page}</button> 
+                    <button key={page} onClick={()=>props.page(page)} className={styles.buttonPagin}>{page}</button> 
                 )}
-                </ul>
+                </div>
                 : 
-                <div>1</div>
+                <div className={styles.numbers}>1</div>
                 }
             </div>
         </div>

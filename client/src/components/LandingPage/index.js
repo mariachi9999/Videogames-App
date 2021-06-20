@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { getInfo } from "../../store/actions";
+import { getInfo, getVideogames } from "../../store/actions";
 import styles from "./landingPage.module.css"
 
 const LandingPage = (props) =>  {
 
     const dispatch = useDispatch()
-    dispatch(getInfo())
+    
+    useEffect(()=> 
+    dispatch(getInfo()),
+    [])
 
+    useEffect(()=> 
+    dispatch(getVideogames()),
+    [])
 
     return (
       <div className={styles.home} id={styles.contain}>
