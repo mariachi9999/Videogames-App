@@ -3,6 +3,7 @@
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    background-color: black;
 }
 
 #loadingMsg{
@@ -17,6 +18,6 @@
 }
 
 #loadingImg{
-    width: 100%;
+    width: 75%;
     height: 70%;
 }

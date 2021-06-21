@@ -108,3 +108,21 @@ export const orderRating = function (value) {
         )
     }
 }
+
+export const limpiarDetails = ()=>{
+    return function(dispatch) {
+            dispatch({
+                type: 'CLEAN_VIDEOGAME_DETAIL',
+            })
+        }
+    }
+
+export const limpiarSearched = ()=>{
+    return function(dispatch) {
+            dispatch({
+                type: 'CLEAN_GAMES_SEARCHED',
+            })
+        }
+    }
+
+    

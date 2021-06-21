@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import styles from "./SearchBar.module.css";
 import { Link } from "react-router-dom";
 // import { searchVideogames } from "../../store/actions";
-import { getVideogames } from "../../store/actions";
+import { getVideogames, limpiarSearched } from "../../store/actions";
 
 
 const SearchBar = () =>  {
@@ -20,7 +20,7 @@ const SearchBar = () =>  {
     
     const handleSubmit = e => {
         // e.preventDefault();
-        console.log(state.name);
+        dispatch(limpiarSearched())
         dispatch(getVideogames(state.name))        
     }
 

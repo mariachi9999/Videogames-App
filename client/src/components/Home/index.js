@@ -10,7 +10,9 @@ import styles from "./Home.module.css"
 import PagingBox from "../PagingBox";
 import FilterBox from "../FilterBox";
 import OrderBox from "../OrderBox/OrderBox";
-import Footer from "../Footer/index.js"
+import Footer from "../Footer/index.js";
+import Loading from "../Loading/index.js";
+import VideogameNotFinded from "../VideogameNoEncontrado/index.js"
 
 
 const Home = (props) =>  {
@@ -132,79 +134,102 @@ const Home = (props) =>  {
   setPaginado(1),
   [genre])
 
+  console.log(videogames)
 
     return (
-      <div id={styles.containerPpal}>
+
+      <div>
         
-        {/* Cabecera*/}
-        <div id={styles.containerHeader}>
-          <div id={styles.addGame}>
-            <Link to={`/videogame`} className={styles.navLink}>
-              <button id={styles.boton}>Add a Videogame!</button>
-            </Link>
-          </div>
-          <div id={styles.title}>
-            <h1>Videogames!</h1>
-          </div>
-          <div id={styles.searchbar}>
-            <SearchBar/>
-          </div>
-        </div>
+        {videogames.length===0?
 
+        <Loading/>
+        :
 
-        {/* Cuerpo */}
-        <div id={styles.containerCuerpoPpal}>
+        <div id={styles.containerPpal}>
 
-          <div id={styles.filtros}>
-            <div id={styles.filterBox}>
-              <FilterBox/>
+          {/* Cabecera*/}
+          <div id={styles.containerHeader}>
+            <div id={styles.addGame}>
+              <Link to={`/videogame`} className={styles.navLink}>
+                <button id={styles.boton}>Add a Videogame!</button>
+              </Link>
             </div>
-            <div id={styles.orderBox}>
-              <OrderBox />
+            <div id={styles.title}>
+              <Link to={`/videogames`} className={styles.navLink}>
+                <h1>Videogames!</h1>
+              </Link>
+            </div>
+            <div id={styles.searchbar}>
+              <SearchBar/>
             </div>
           </div>
 
-          <div id={styles.videogamesBox}>
+          {/* Cuerpo */}
+          <div id={styles.containerCuerpoPpal}>
+            {videogames[0].name==="Videogames no encontrados"?
+              <VideogameNotFinded/>
+              :
+              
+              <div id={styles.containerConJuegos}>
 
-            <div id={styles.cardsContainer}>
-              {videogames.length > 0 ? 
-              <div className={styles.cards}>
-                {videogames && videogames.slice(initIndex,endIndex).map(games =>
-                    <Link to={`/videogames/${games.id}`} className={styles.navLink}>
-                  <div key={games.id} className={styles.games}>
-                    <div className={styles.gameTitle}>
-                      <span className={styles.colorTitle}>{games.name}</span>
-                    </div>
-                    <div className={styles.gameImage}>
-                      <img src={games.image} alt="alternatetext" className={styles.cardImage}/>
-                    </div>
-                    <div className={styles.gameGenres}>
-                      {games.genres && games.genres.map(g=>
-                        <span className={styles.generoSpan}>{g}</span>  
-                        )}
-                    </div> 
-                  </div> 
-                        </Link>
-                )}
+              <div id={styles.filtros}>
+                <div id={styles.filterBox}>
+                  <FilterBox/>
+                </div>
+                <div id={styles.orderBox}>
+                  <OrderBox />
+                </div>
               </div>
-              : 
-              <div className={styles.loading}></div>
-              }
+  
+              <div id={styles.videogamesBox}>
+  
+                <div id={styles.cardsContainer}>
+                  {videogames.length > 0 ? 
+                  <div className={styles.cards}>
+                    {videogames && videogames.slice(initIndex,endIndex).map(games =>
+                        <Link to={`/videogames/${games.id}`} className={styles.navLink}>
+                      <div key={games.id} className={styles.games}>
+                        <div className={styles.gameTitle}>
+                          <span className={styles.colorTitle}>{games.name}</span>
+                        </div>
+                        <div className={styles.gameImage}>
+                          <img src={games.image} alt="alternatetext" className={styles.cardImage}/>
+                        </div>
+                        <div className={styles.gameGenres}>
+                          {games.genres && games.genres.map(g=>
+                            <span className={styles.generoSpan}>{g}</span>  
+                            )}
+                        </div> 
+                      </div> 
+                            </Link>
+                    )}
+                  </div>
+                  : 
+                  <div className={styles.loading}></div>
+                  }
+                </div>
+  
+                <div id={styles.paginado}>
+                  <PagingBox pages={pages} page={page}/>
+                </div>
+  
+              </div>
+  
             </div>
+              
+            }
+          </div>          
 
-            <div id={styles.paginado}>
-              <PagingBox pages={pages} page={page}/>
-            </div>
+          
 
+
+          {/* Footer */}
+          <div id={styles.containerFooter}>
+            <Footer/> 
           </div>
 
         </div>
-
-        {/* Footer */}
-        <div id={styles.containerFooter}>
-          <Footer/> 
-        </div>
-
+      }
       </div>
     );
   }

@@ -57,7 +57,17 @@ const rootReducer = (state=initialState,action) => {
                 ...state,
                 rating: action.payload,
                 alphabetical: ""
-            }           
+            }
+        case 'CLEAN_VIDEOGAME_DETAIL':
+            return {
+                ...state,
+                gameDetail: {}
+            }
+        case 'CLEAN_GAMES_SEARCHED':
+            return {
+                ...state,
+                gamesSearched: []
+            }                     
         default:
             return {
                 ...state
@@ -66,3 +76,4 @@ const rootReducer = (state=initialState,action) => {
 }
 
 export default rootReducer;
+

@@ -98,8 +98,19 @@ async function getVideogames(req,res,next) {
                     filteredDataAPI.forEach(g=>results.push(g));
                 }
 
+                if(results.length ===0){
+                    results.push({
+                        name: "Videogames no encontrados",
+                        image: "",
+                        genres: "",
+                        rating: "",
+                        platforms: "",
+                        id: "",
+                        source: ""})
+                }
+
                 return res.json(results)
-        
+                
                 } catch (e) {
                     next(e)
                 }
