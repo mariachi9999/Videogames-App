@@ -1,7 +1,7 @@
 #containerPpal {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 99vh;
     background-color: gray;
 }
 
@@ -10,8 +10,10 @@
     background-color:black ;
     color: cornsilk;
     display: flex;
-    width: 100%;
+    width: 98%;
     height: 10%;
+    padding-left: 1%;
+    padding-right: 1%;
     align-items: center;
 }
 
@@ -46,6 +48,15 @@
 #searchbar{
     display: flex;
     width: 25%;
+}
+
+#boton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 125%;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 /* Estilos del container Cuerpo Ppal*/
@@ -149,9 +160,16 @@
 .gameGenres {
     height: 15%;
     font-size: 75%;
+    flex-wrap: wrap;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.generoSpan{
+    height: 100%;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 .cardImage {
@@ -165,11 +183,3 @@
     font-weight: bold;
 }    
 
-#boton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 125%;
-    border-radius: 5px;
-    text-decoration: none;
-}

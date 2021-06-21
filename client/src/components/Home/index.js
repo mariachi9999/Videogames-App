@@ -19,7 +19,7 @@ const Home = (props) =>  {
 
   const dispatch = useDispatch()
 
-  // useEffect(()=> dispatch(getVideogames()), []) 
+  useEffect(()=> dispatch(getVideogames()), []) 
 
   var videogamesSearched = useSelector(store=>store.gamesSearched) 
   var videogamesLoaded = useSelector(store=>store.gamesLoaded);
@@ -139,7 +139,7 @@ const Home = (props) =>  {
         {/* Cabecera*/}
         <div id={styles.containerHeader}>
           <div id={styles.addGame}>
-            <Link to={`/videogame`}>
+            <Link to={`/videogame`} className={styles.navLink}>
               <button id={styles.boton}>Add a Videogame!</button>
             </Link>
           </div>
@@ -170,21 +170,21 @@ const Home = (props) =>  {
               {videogames.length > 0 ? 
               <div className={styles.cards}>
                 {videogames && videogames.slice(initIndex,endIndex).map(games =>
+                    <Link to={`/videogames/${games.id}`} className={styles.navLink}>
                   <div key={games.id} className={styles.games}>
                     <div className={styles.gameTitle}>
-                      <Link to={`/videogames/${games.id}`} className={styles.navLink}>
-                        <span className={styles.colorTitle}>{games.name}</span>
-                      </Link>
+                      <span className={styles.colorTitle}>{games.name}</span>
                     </div>
                     <div className={styles.gameImage}>
                       <img src={games.image} alt="alternatetext" className={styles.cardImage}/>
                     </div>
                     <div className={styles.gameGenres}>
                       {games.genres && games.genres.map(g=>
-                        <span>{g}</span>  
-                      )}
+                        <span className={styles.generoSpan}>{g}</span>  
+                        )}
                     </div> 
                   </div> 
+                        </Link>
                 )}
               </div>
               : 

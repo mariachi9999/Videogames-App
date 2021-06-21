@@ -1,0 +1,22 @@
+#loading{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+#loadingMsg{
+    width: 100%;
+    height: 30%;
+    background-color: black;
+    color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 10vh;
+}
+
+#loadingImg{
+    width: 100%;
+    height: 70%;
+}

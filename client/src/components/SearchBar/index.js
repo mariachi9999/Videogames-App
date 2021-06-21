@@ -36,7 +36,7 @@ const SearchBar = () =>  {
                     id={styles.barra}
                     >
                 </input>
-                <Link to={`/videogames?name=${state.name}`}>
+                <Link to={`/videogames?name=${state.name}`} className={styles.navLink}>
                     <button type="submit" onClick={(e)=>handleSubmit(e)} id={styles.boton}>Buscar!</button>
                 </Link>
             </form>

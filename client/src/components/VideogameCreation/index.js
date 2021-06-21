@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import SearchBar from "../SearchBar";
 import styles from "./VideogameCreation.module.css"
 import { addVideogame } from "../../store/actions";
+import Footer from "../Footer/index.js"
+import image from "../../images/videogame.png"
 
 
 
@@ -64,6 +66,7 @@ const VideogameCreation = (props) =>  {
   function handleSubmit(event) {
     event.preventDefault();
     dispatch(addVideogame(state));
+    alert("Videogame creado!")
     setState({
       name:"",
       description:"",
@@ -75,95 +78,116 @@ const VideogameCreation = (props) =>  {
   }
   
     return (
-      <div>
-        <div className={styles.cabecera}>
-          <SearchBar/>
-          <h2>Add a Videogame</h2>
-          <Link to={`/videogames`}>
-              <button>Home</button>
-          </Link>
+      <div id={styles.containerPpal}>
+         {/* Cabecera*/}
+         <div id={styles.containerHeader}>
+          <div id={styles.addGame}>
+            <Link to={`/videogames`} className={styles.navLink}>
+              <button id={styles.boton}>Home</button>
+            </Link>
+          </div>
+          <div id={styles.title}>
+            <h1>Videogames!</h1>
+          </div>
+          <div id={styles.searchbar}>
+            <SearchBar/>
+          </div>
         </div>
-        <div className={styles.formulario}>
-          <form className={styles.campos} onSubmit={(e) => handleSubmit(e)}>
-            <div>
-              <label className={styles.label} htmlFor="name">Title: </label>
-              <input
-                type="text"
-                id="name"
-                autoComplete="off"
-                value={state.name}
-                onChange={(e) => handleChange(e)}
-              />
-              <label className={styles.label} htmlFor="description">Description: </label>
-              <textarea
-                type="text"
-                id="description"
-                rows="10" 
-                cols="50"
-                autoComplete="off"
-                value={state.description}
-                onChange={(e) => handleChange(e)}
-              />
-              <label className={styles.label} htmlFor="released">Released: </label>
-              <input
-                type="date"
-                id="released"
-                autoComplete="off"
-                value={state.released}
-                onChange={(e) => handleChange(e)}
-              />
-              <label className={styles.label} htmlFor="rating">Rating: </label>
-              <input
-                type="number"
-                placeholder="5.0"
-                step="0.1"
-                min="0"
-                max="10"
-                id="rating"
-                autoComplete="off"
-                value={state.rating}
-                onChange={(e) => handleChange(e)}
-              />
-              <label className={styles.label} htmlFor="platforms">Platforms: </label>
-              <select 
-              id="platforms"
-              value={state.platforms}
-              size="5">
-                {platformsOpt && platformsOpt.map(platform=>
-                  <option value={platform} onClick={handleClick} name="platform">{platform}</option>)}
-              </select>
-              <div className="filterButton">
-                {
-                  state.platforms && state.platforms.split(",").filter(p=>p.length>0).map(p=>
-                    <span className="filterButton">
-                      <span className="filterButton">{p}</span>
-                      <button className="filterButton" onClick={handleCross} name="platform" value={p}>X</button>
-                    </span>
-                    )
-                }
+
+        {/* Formulario */}
+        <div id={styles.containerCuerpoPpal}>
+          <div className={styles.imageContainer}>
+           <img className={styles.image} src={image} alt="alternatetext"/>
+          </div>
+          <div className={styles.formContainer}>
+            <form className={styles.formu} onSubmit={(e) => handleSubmit(e)}>
+              <div className={styles.campos}>
+                <label className={styles.label} htmlFor="name">Title: </label>
+                <input
+                  type="text"
+                  id="name"
+                  autoComplete="off"
+                  value={state.name}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label className={styles.label} htmlFor="description">Description: </label>
+                <textarea
+                  type="text"
+                  id="description"
+                  rows="8" 
+                  cols="50"
+                  autoComplete="off"
+                  value={state.description}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label className={styles.label} htmlFor="released">Released: </label>
+                <input
+                  type="date"
+                  id="released"
+                  autoComplete="off"
+                  value={state.released}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label className={styles.label} htmlFor="rating">Rating: </label>
+                <input
+                  type="number"
+                  placeholder="5.0"
+                  step="0.1"
+                  min="0"
+                  max="5"
+                  id="rating"
+                  autoComplete="off"
+                  value={state.rating}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label className={styles.label} htmlFor="platforms">Platforms: </label>
+                <select 
+                id="platforms"
+                value={state.platforms}
+                size="3">
+                  {platformsOpt && platformsOpt.map(platform=>
+                    <option value={platform} onClick={handleClick} name="platform">{platform}</option>)}
+                </select>
+                <div className="filterButton">
+                  {
+                    state.platforms && state.platforms.split(",").filter(p=>p.length>0).map(p=>
+                      <span className="filterButton">
+                        <span className="filterButton">{p}</span>
+                        <button className="filterButton" onClick={handleCross} name="platform" value={p}>X</button>
+                      </span>
+                      )
+                  }
+                </div>
+                <label className={styles.label} htmlFor="genres">Genres: </label>
+                <select 
+                id="genres"
+                value={state.genres}
+                size="3">
+                  {genresOpt && genresOpt.map(genre=>
+                    <option value={genre} onClick={handleClick} name="genre">{genre}</option>)}
+                </select>
+                <div className="filterButton">
+                  {
+                    state.genres && state.genres.split(",").filter(g=>g.length>0).map(g=>
+                      <span className="filterButton">
+                        <span className="filterButton">{g}</span>
+                        <button className="filterButton" onClick={handleCross} name="genre" value={g}>X</button>
+                      </span>
+                      )
+                  }
+                </div>
+              <button className={styles.boton} type="submit">Add!</button>
               </div>
-              <label className={styles.label} htmlFor="genres">Genres: </label>
-              <select 
-              id="genres"
-              value={state.genres}
-              size="5">
-                {genresOpt && genresOpt.map(genre=>
-                  <option value={genre} onClick={handleClick} name="genre">{genre}</option>)}
-              </select>
-              <div className="filterButton">
-                {
-                  state.genres && state.genres.split(",").filter(g=>g.length>0).map(g=>
-                    <span className="filterButton">
-                      <span className="filterButton">{g}</span>
-                      <button className="filterButton" onClick={handleCross} name="genre" value={g}>X</button>
-                    </span>
-                    )
-                }
-              </div>
-            </div>
-            <button type="submit">Add!</button>
-          </form>
+            </form>
+          </div>
+          
         </div>
+
+        {/* Footer */}
+        <div id={styles.containerFooter}>
+          <Footer/> 
+        </div>
+
       </div>
     )
 

@@ -26,7 +26,7 @@ const VideogameDetail = (props) =>  {
         {/* Cabecera*/}
         <div id={styles.containerHeader}>
           <div id={styles.addGame}>
-            <Link to={`/videogames`}>
+            <Link to={`/videogames`} className={styles.navLink}>
               <button id={styles.boton}>Home</button>
             </Link>
           </div>
@@ -37,30 +37,46 @@ const VideogameDetail = (props) =>  {
             <SearchBar/>
           </div>
         </div>
+        {/* Container Imagen + Datos*/}
         <div className={styles.presentation}>
-          <img src={image} alt={image} className={styles.image}/>
+          <div className={styles.containerImagen}>
+            <img src={image} alt={image} className={styles.image}/>
+          </div>
           <div className={styles.data}>
-            <h2>{name}</h2>              
-            <h4>Released:</h4>
-            <span>{released}</span>
-            <h4>Genres:</h4>
-              <ul>
+            <div className={styles.details}>
+              <h4 className={styles.titles}>Title:</h4>
+              <span className={styles.datos}>{name}</span>              
+            </div>
+            <div className={styles.details}>
+              <h4 className={styles.titles}>Released:</h4>
+              <span className={styles.datos}>{released}</span>
+            </div>
+            <div className={styles.details}>
+              <h4 className={styles.titles}>Genres:</h4>
+              <div className={styles.datos}>
                 {genres && genres.map((genre)=>
                 <span>{genre}</span>
                 )}
-              </ul>
-            <h4>Platforms:</h4>
-              <ul>
+              </div>
+            </div>
+           <div className={styles.details}>
+              <h4 className={styles.titles}>Platforms:</h4>
+              <div className={styles.datos}>
                 {platforms && platforms.map((platform)=>
                 <span>{platform}</span>
                 )}
-              </ul>
-            <h4>Rating:</h4>
-            <span>{rating}</span>
+              </div>
+           </div>
+           <div className={styles.details}>
+            <h4 className={styles.titles}>Rating:</h4>
+            <span className={styles.datos}>{rating}</span>
+           </div>       
           </div>
         </div>
+
+        {/* Container descripción*/}
         <div className={styles.description}>
-          <h3>Description:</h3>
+          <h4 className={styles.titleDescription}>Description:</h4>
           <p>{description}</p>
         </div>
       </div>

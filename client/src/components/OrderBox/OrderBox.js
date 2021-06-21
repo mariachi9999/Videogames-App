@@ -51,7 +51,7 @@ export const OrderBox = (props) => {
     return (
         <div id={styles.container}>
             <div className={styles.nameContainer}>
-                <h4>Order by name</h4>
+                <div className={styles.containerTitle}>Order by name</div>
                 <div className={styles.options}>
                     <input type="checkbox" id="cbox1" field="alphabetical" value="ascendent" onClick={handleClick} className={styles.cbox}/>
                     <label className={styles.label}>Ascendent</label>
@@ -62,7 +62,7 @@ export const OrderBox = (props) => {
                 </div>
             </div>
             <div className={styles.nameContainer}>
-                <h4>Order by rating</h4>
+                <div className={styles.containerTitle}>Order by rating</div>
                 <div className={styles.options}>
                     <input type="checkbox" id="cbox4" field="rating" value="descendent" onClick={handleClick} className={styles.cbox}/> 
                     <label className={styles.label}>Top to bottom</label>
