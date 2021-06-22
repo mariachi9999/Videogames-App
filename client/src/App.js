@@ -15,11 +15,9 @@ function App() {
     <div className="App">
       <Route exact path="/" component={LandingPage}/>
       <Route exact path="/videogames" render={({location})=> <Home location={location}/>}/>
-      {/* <Route exact path="/videogames" component={Home}/>
-      <Route exact path="/videogames?name" component={SearchPage}/> */}
       <Route exact path="/videogames/:id" render={({match})=> <VideogameDetail match={match}/>}/>
       <Route exact path="/videogame" component={VideogameCreation} />
-      <Route exact path="/prueba" component={Loading} />
+      {/* <Route exact path="/prueba" component={Loading} /> */}
     </div>
   );
 }

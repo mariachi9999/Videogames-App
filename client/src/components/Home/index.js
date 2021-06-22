@@ -142,7 +142,7 @@ const Home = (props) =>  {
         
         {videogames.length===0?
 
-        <Loading/>
+        <Loading data-testid="loadingComponent"></Loading>
         :
 
         <div id={styles.containerPpal}>

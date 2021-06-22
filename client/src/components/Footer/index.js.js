@@ -6,12 +6,12 @@ function Footer() {
     return (
         <div className={styles.container}>
             <div className={styles.henry}>
-                <span className={styles.message}>Hecho con 💖 para Soy Henry</span>
+                <span className={styles.message} data-testid="messageHenry">Hecho con 💖 para Soy Henry</span>
                 <a className={styles.anchor} href="https://www.soyhenry.com/" target="blank">
                     <img className={styles.red} loading="lazy" alt="Linkedin" src="https://hypernoir.com/wp-content/uploads/2020/11/Henry.png" title="Sigueme en Linkedin"/>
                 </a>
             </div>
-            <div className={styles.redes}>
+            <div className={styles.redes} data-testid="socialMedia">
                 <a className={styles.anchor} href="https://www.linkedin.com/in/nicolas-lupo-mdq86/" target="blank">
                     <img className={styles.red} loading="lazy" alt="Linkedin" src="https://4.bp.blogspot.com/-0KtSvK3BydE/XCrIzgI3RqI/AAAAAAAAH_w/n_rr5DS92uk9EWEegcxeqAcSkV36OWEOgCLcBGAs/s1600/linkedin.png" title="Sigueme en Linkedin"/>
                 </a>

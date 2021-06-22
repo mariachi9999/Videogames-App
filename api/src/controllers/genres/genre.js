@@ -1,29 +1,7 @@
-const { Genre } = require("../db");
+const { Genre } = require("../../db");
 const axios = require("axios").default;
-const { BASE_URL, BASE_GENRES } = require("../../constants");
+const { BASE_URL, BASE_GENRES } = require("../../../constants");
 const {RAWG_API_KEY} = process.env
-
-
-function addGenre(req, res, next) {
-  const genre = req.body;
-  console.log(genre);
-
-  if (!genre)
-    return res.sendStatus({
-      error: 500,
-      message: "Usuario debe enviar un genre.",
-    });
-  Genre.findOrCreate({
-    where: {
-      name: genre.name,
-    },
-    defaults:{
-      id: uuidv4(),
-      name: genre.name}
-    })
-    .then((resp) => res.json(resp))
-    .catch((err) => next(err))
-}
 
 
 async function getGenres(req,res,next) {
@@ -53,7 +31,29 @@ async function getGenres(req,res,next) {
   }
 }
 
+
+//Acá estuve probando la posibilidad de agregar géneros; queda por las dudas pero no está siendo utlizada.
+function addGenre(req, res, next) {
+  const genre = req.body;
+  console.log(genre);
+
+  if (!genre)
+    return res.sendStatus({
+      error: 500,
+      message: "Usuario debe enviar un genre.",
+    });
+  Genre.findOrCreate({
+    where: {
+      name: genre.name,
+    },
+    defaults:{
+      id: uuidv4(),
+      name: genre.name}
+    })
+    .then((resp) => res.json(resp))
+    .catch((err) => next(err))
+}
+
 module.exports = {
-  addGenre,
   getGenres,
 };

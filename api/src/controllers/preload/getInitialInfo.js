@@ -1,7 +1,7 @@
 const axios = require("axios").default;
-const { BASE_URL, BASE_PLATFORMS } = require("../../constants");
+const { BASE_URL, BASE_PLATFORMS } = require("../../../constants");
 const {RAWG_API_KEY} = process.env
-const {Genre} = require('../db');
+const {Genre} = require('../../db');
 
 
 async function getInfo(req,res,next) {
