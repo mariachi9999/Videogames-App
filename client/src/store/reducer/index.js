@@ -36,15 +36,25 @@ const rootReducer = (state=initialState,action) => {
                 ...state,
                 gameDetail: action.payload.data
             }
-        case 'FILTER_GENRES':
+        case 'ADD_GENRE':
             return {
                 ...state,
-                filteredGenres: action.payload
+                filteredGenres: state.filteredGenres.concat(action.payload)
             }
-        case 'FILTER_SOURCE':
+        case 'ADD_SOURCE':
             return {
                 ...state,
-                filteredSources: action.payload
+                filteredSources: state.filteredSources.concat(action.payload)
+            }
+        case 'REMOVE_GENRE':
+            return {
+                ...state,
+                filteredGenres: state.filteredGenres.filter(genre=>genre !== action.payload)
+            }
+        case 'REMOVE_SOURCE':
+            return {
+                ...state,
+                filteredSources: state.filteredSources.filter(source=>source !== action.payload)
             }
         case 'ORDER_ALPHABETICAL':
             return {

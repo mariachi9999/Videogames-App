@@ -1,9 +1,5 @@
 const { v4: uuidv4, validate: uuidValidate  } = require('uuid');
-const axios = require('axios').default;
-const { Op } = require("sequelize");
 const {Videogame, Genre} = require('../../db');
-const {BASE_URL,BASE_VIDEOGAMES} = require('../../../constants');
-const {RAWG_API_KEY} = process.env;
 
 
 async function addVideogame(req,res,next){
