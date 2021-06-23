@@ -41,7 +41,7 @@ const VideogameDetail = (props) =>  {
           <div id={styles.containerHeader}>
             <div id={styles.addGame}>
               {/* <Link to={`/videogames`} className={styles.navLink}> */}
-                <button id={styles.boton} onClick={()=> window.history.back()}>Volver atrás</button>
+                <button id={styles.boton} onClick={()=> window.history.back()}>Go Back!</button>
               {/* </Link> */}
             </div>
             <div id={styles.title}>

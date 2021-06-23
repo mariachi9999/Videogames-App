@@ -136,13 +136,13 @@ const Home = (props) => {
 
   //Paginado
   const videogamesPerPage = 9;
-  const pages = Math.ceil(videogames.length / videogamesPerPage);
-  const [paginado, setPaginado] = useState(1);
-  const page = (value) => setPaginado(value);
-  const endIndex = videogamesPerPage * paginado;
+  const pagesQty = Math.ceil(videogames.length / videogamesPerPage);
+  const [actualPage, setActualPage] = useState(1);
+  const setPage = (value) => setActualPage(value);
+  const endIndex = videogamesPerPage * actualPage;
   const initIndex = endIndex - videogamesPerPage;
 
-  useEffect(() => setPaginado(1), [genre]);
+  useEffect(() => setActualPage(1), [genre]);
 
   return (
     <div>
@@ -224,7 +224,7 @@ const Home = (props) => {
                 )}
 
                 <div id={styles.paginado}>
-                  <PagingBox pages={pages} page={page} />
+                  <PagingBox pagesQty={pagesQty} setPage={setPage} actualPage={actualPage}/>
                 </div>
               </div>
             </div>

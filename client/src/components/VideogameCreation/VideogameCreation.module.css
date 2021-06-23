@@ -68,6 +68,7 @@
     width: 75%;
     background-color: burlywood;
     align-self: center;
+    justify-content: space-around;
 }
 
 .imageContainer{
@@ -102,10 +103,14 @@
     font-weight: bold;
 }
 
-.boton{
+#boton{
     width: 50%;
     align-self: center;
     justify-self: flex-end;
+    padding: 2px;
+    color: burlywood;
+    background-color: black;
+    font-weight: bold;
 }
 
 .navLink {
@@ -113,3 +118,21 @@
     color: white;
     font-weight: bold;
 }    
+
+.inputTitle{
+    width: 35vw;
+    height: 5vh;
+    align-self: center;
+}
+
+.inputRating{
+    width: 35vw;
+    height: 5vh;
+    align-self: center;
+}
+
+.inputDescription{
+    width: 35vw;
+    height: 10vh;
+    align-self: center;
+}

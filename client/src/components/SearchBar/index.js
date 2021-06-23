@@ -29,7 +29,7 @@ const SearchBar = () =>  {
             <form id={styles.form}>
                 <input 
                     type="text" 
-                    placeholder="Busca tu videogame favorito :)"
+                    placeholder="Search a videogame :)"
                     value={state.name}
                     name= "name"
                     onChange={(e) => handleChange(e)}
@@ -37,7 +37,7 @@ const SearchBar = () =>  {
                     >
                 </input>
                 <Link to={`/videogames?name=${state.name}`} className={styles.navLink}>
-                    <button type="submit" onClick={(e)=>handleSubmit(e)} id={styles.boton}>Buscar!</button>
+                    <button type="submit" onClick={(e)=>handleSubmit(e)} id={styles.boton}>Search!</button>
                 </Link>
             </form>
         </div>

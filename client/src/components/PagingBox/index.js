@@ -3,10 +3,10 @@ import styles from "./PagingBox.module.css"
 
 export const PagingBox = (props) => {
     
-    const {pages} = props
+    const {pagesQty, actualPage} = props
     
     const pagesArray = []
-    for(let i=1; i<=pages;i++){
+    for(let i=1; i<=pagesQty;i++){
         pagesArray.push(i)
     }
 
@@ -16,7 +16,7 @@ export const PagingBox = (props) => {
                 {pagesArray.length > 0 ? 
                 <div className={styles.numbers}>
                 {pagesArray && pagesArray.map(page =>
-                    <button key={page} onClick={()=>props.page(page)} className={styles.buttonPagin}>{page}</button> 
+                    <button key={page} onClick={()=>props.setPage(page)} className={`${page===actualPage ? `${styles.active}` : `${styles.buttonPagin}`}`}>{page}</button> 
                 )}
                 </div>
                 : 

@@ -6,7 +6,7 @@ function Footer() {
     return (
         <div className={styles.container}>
             <div className={styles.henry}>
-                <span className={styles.message} data-testid="messageHenry">Hecho con 💖 para Soy Henry</span>
+                <span className={styles.message} data-testid="messageHenry">Made with 💖 for Soy Henry</span>
                 <a className={styles.anchor} href="https://www.soyhenry.com/" target="blank">
                     <img className={styles.red} loading="lazy" alt="Linkedin" src="https://hypernoir.com/wp-content/uploads/2020/11/Henry.png" title="Sigueme en Linkedin"/>
                 </a>
