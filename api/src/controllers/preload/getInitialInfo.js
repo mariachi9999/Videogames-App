@@ -1,29 +1,22 @@
 const axios = require("axios").default;
-const { BASE_URL, BASE_PLATFORMS } = require("../../../constants");
-const {RAWG_API_KEY} = process.env
-const {Genre} = require('../../db');
+const { BASE_URL, BASE_VIDEOGAMES } = require("../../../constants");
+const { RAWG_API_KEY } = process.env;
+const { Genre } = require("../../db");
+const { getPlatforms } = require("../../controllers/platforms/platforms.js");
 
 
-async function getInfo(req,res,next) {
+async function getInfo(req, res, next) {
+  try {
+    const platforms= await getPlatforms();
 
-  try{
-    console.log("Llegó la consulta de getInfo")
-    const consultaApiPlatforms = await axios
-        .get(`${BASE_URL}${BASE_PLATFORMS}?key=${RAWG_API_KEY}`, {
-          responseType: "json",
-        })
-      
-    const platforms = consultaApiPlatforms.data.results;
-    const genre = await Genre.findAll()
+    const genre = await Genre.findAll();
 
-
-    res.json({
-        platforms,
-        genre
-    })
-
-  } catch(err) {
-       (err) => next(err);
+    return res.json({
+      platforms,
+      genre,
+    });
+  } catch (err) {
+    (err) => next(err);
   }
 }
 
