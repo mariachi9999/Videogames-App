@@ -20,7 +20,7 @@ const rootReducer = (state=initialState,action) => {
             ;
         case 'GET_INFO':
             const genres = action.payload.genre.map(genre=>genre.name);
-            const platforms = action.payload.platforms.map(platform=>platform.name);
+            const platforms = action.payload.platforms;
             return {
                 ...state,
                 genres: genres,
