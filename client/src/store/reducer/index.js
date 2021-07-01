@@ -3,6 +3,7 @@ const initialState = {
     gamesSearched: [],
     gameDetail: {},
     filteredGenres: [],
+    genres: [],
     platforms: [],
     source: ["api","local"],
     filteredSources: [],
@@ -11,13 +12,14 @@ const initialState = {
 };
 
 const rootReducer = (state=initialState,action) => {
+   
     switch(action.type){
+
         case 'GET_VIDEOGAMES':
             return {
                 ...state,
                 gamesLoaded: action.payload.data
             }
-            ;
         case 'GET_INFO':
             const genres = action.payload.genre.map(genre=>genre.name);
             const platforms = action.payload.platforms;

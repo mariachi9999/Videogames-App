@@ -10,7 +10,7 @@ describe('Videogame model', () => {
     beforeEach(() => Videogame.sync({ force: true }));
     describe('name', () => {
       it('should throw an error if name is null', (done) => {
-        Videogame.create({name: 'Super Mario Bros'})
+        Videogame.create({name: ''})
           .then(() => done(new Error('It requires a valid name')))
           .catch(() => done());
       });

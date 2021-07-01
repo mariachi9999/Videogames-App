@@ -91,13 +91,11 @@ export const filterGenresRemove = function (value) {
     };
   };
   
-  export const filterSourceRemove = function (value) {
+export const filterSourceRemove = function (value) {
     return function (dispatch) {
       dispatch({ type: "REMOVE_SOURCE", payload: value });
     };
   };
-
-
 
 export const orderAlphabetical = function (value) {
   return function (dispatch) {
