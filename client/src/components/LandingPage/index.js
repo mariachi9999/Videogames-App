@@ -19,7 +19,7 @@ const LandingPage = (props) =>  {
     return (
       <div className={styles.home} id={styles.contain}>
         <Link to={`/videogames`}>
-          <button className={styles.homeButton}>Busca tu videogame favorito!</button>
+          <button className={styles.homeButton}>Look for your favourite videogame!</button>
         </Link>
       </div>
     );
